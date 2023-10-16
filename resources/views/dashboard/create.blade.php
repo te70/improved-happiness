@@ -323,7 +323,15 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#door-closed"/></svg>
-                Sign out
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
               </a>
             </li>
           </ul>
@@ -339,7 +347,7 @@
         <div class="row">
           <div class="card w-50">
           <div class="card-body">
-    <form class="row g-3" method="POST" action="{{ route('home.store') }}">
+    <form class="row g-3" method="POST" action="{{ route('home.store') }}" enctype="multipart/form-data">
       @csrf
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">First name</label>
@@ -392,8 +400,8 @@
         </div>
         <div class="col-md-12">
           <div class="input-group mb-3">
-            <label class="input-group-text" for="inputGroupFile01">Upload profile image</label>
-            <input type="file" class="form-control" id="inputGroupFile01" name="profile_image" required>
+            <label class="input-group-text" for="profile">Upload profile image</label>
+            <input type="file" class="form-control" id="profile" name="profile_image" required>
           </div>
         </div>
         <div class="col-12">

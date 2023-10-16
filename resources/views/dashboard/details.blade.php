@@ -322,8 +322,15 @@
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#door-closed"/></svg>
-                Sign out
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
               </a>
             </li>
           </ul>
@@ -340,7 +347,7 @@
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                   <div class="col-md-4">
-                    <img src="{{ asset('/images/'. $employee->profile_image ) }}" class="img-fluid rounded-start" width="100px" height="80px">
+                    <img src="{{ asset('/images/'. $employee->profile_image ) }}" class="img-fluid rounded-start">
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">

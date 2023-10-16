@@ -7,6 +7,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Employee;
 use App\Models\Division;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -28,7 +30,8 @@ class HomeController extends Controller
     public function index()
     {
         $employees = Employee::all();
-        return view('dashboard.index', compact('employees'));
+        $user = Auth::user();
+        return view('dashboard.index', compact('employees', 'user'));
     }
 
     public function create()
@@ -45,12 +48,12 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-         
-        if ($request->hasFile('profile_image')) {
-            $image = $request->file('profile_image');
-            $name= base64_encode(Carbon::now()).$image->getClientOriginalName();
-            $image->move(public_path('images/'),$name);
-        }
+    
+        $image = $request->file('profile_image');
+        $name= base64_encode(Carbon::now()).$image->getClientOriginalName();
+        $image->move(public_path('images/'),$name);
+            
+        
         $employeeCreate = new Employee();
         $employeeCreate->firstName = $request->firstName;
         $employeeCreate->lastName = $request->lastName;
@@ -60,9 +63,18 @@ class HomeController extends Controller
         $employeeCreate->department = $request->department;
         $employeeCreate->role = $request->role;
         $employeeCreate->division_id = $request->division;
-        $employeeCreate->profile_image = '';
+        $employeeCreate->profile_image = $name;
         $employeeCreate->save();
+
+        $createUser = new User();
+        $createUser->name = $request->firstName;
+        $createUser->email = $request->email;
+        $createUser->roles = $request->role;
+        $createUser->password = Hash::make($request->password);
+        $createUser->save();
+
         return redirect()->to('/home');
+
     }
 
     public function edit($id)

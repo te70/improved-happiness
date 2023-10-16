@@ -217,8 +217,16 @@
           <ul class="nav flex-column mb-auto">
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
-                <svg class="bi"><use xlink:href="#door-closed"/></svg>
-                Sign out
+                {{-- <svg class="bi"><use xlink:href="#door-closed"/></svg> --}}
+                <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
               </a>
             </li>
           </ul>
@@ -251,7 +259,6 @@
           </thead>
           <tbody>
             @foreach($employees as $key=>$employee)
-            {{-- @if($ad->client_id == $user->id && $user->roles == 'Client' || $user->roles == 'Admin')  --}}
             <tr>
               <td>{{ $key+1 }}</td>
               <td><a href="{{ route('home.details', ['id' => $employee->id]) }}"><span class="badge rounded-pill text-bg-primary" style="text-transform: uppercase;">{{$employee->firstName}} {{$employee->lastName}}</span></a></td>
@@ -260,7 +267,7 @@
               <td>{{ $employee->email}}</td>
               <td>{{ $employee->number }}</td>
               <td>
-                <div class="dropup">
+                <div class="dropstart">
                   <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i style="color: black;" class="bi bi-three-dots-vertical"></i>
                   </a>
@@ -272,12 +279,10 @@
                       <button type="submit" class="dropdown-item" href="">Delete</button>
                   </form> 
                   </ul>
-                </div>
-                
+                </div> 
             </td>
           </tr>
-          {{-- @endif --}}
-            @endforeach
+          @endforeach
           </tbody>
         </table>
       </div>
