@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="mt-16">
-                    <div class="flex justify-center">
+                    <div class="flex justify-center"> 
                         KeyOne Realty Group
                     </div>
                 </div>
