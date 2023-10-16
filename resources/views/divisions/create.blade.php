@@ -333,68 +333,17 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Create employee</h1>
+        <h1 class="h2">Create division</h1>
       </div>
       <div class="container">
         <div class="row">
           <div class="card w-50">
           <div class="card-body">
-    <form class="row g-3" method="POST" action="{{ route('home.store') }}">
+    <form class="row g-3" method="POST" action="{{ route('divisions.store') }}">
       @csrf
         <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">First name</label>
-          <input type="text" class="form-control" id="inputEmail4" name="firstName" required>
-        </div>
-        <div class="col-md-6">
-          <label for="inputPassword4" class="form-label">Last name</label>
-          <input type="text" class="form-control" id="inputPassword4" name="lastName" required>
-        </div>
-        <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">Email</label>
-          <input type="email" class="form-control" id="inputEmail4" name="email" required>
-        </div>
-        <div class="col-md-6">
-          <label for="inputPassword4" class="form-label">Password</label>
-          <input type="password" class="form-control" id="inputPassword4" name="password" required>
-        </div>
-        <div class="col-md-6">
-          <label for="inputPassword4" class="form-label">Number</label>
-          <input type="telephone" class="form-control" id="inputPassword4" name="number" required>
-        </div>
-        <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">Department</label>
-          <select id="inputState" class="form-select" name="department" required>
-            <option selected>Choose...</option>
-            <option value="Interior design">Interior design</option>
-            <option value="Property Management">Property management</option>
-            <option value="Real estate brokerage">Real estate brokerage</option>
-            <option value="Holiday homes">Holiday homes</option>
-            <option value="Marketing">Marketing</option>
-            <option value="Management">Management</option>
-            <option value="Admnistration">Admnistration</option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label for="inputPassword4" class="form-label">Role</label>
-          <select id="inputState" class="form-select" name="role" required>
-            <option selected>Choose...</option>
-            <option value="Interior design">Employee</option>
-            <option value="Property Management">Admin</option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label for="inputPassword4" class="form-label">Division</label>
-          <select id="inputState" class="form-select" name="division" required>
-            @foreach($divisions as $division)
-                <option value="{{$division->id}}">{{$division->divisionName}}</option>
-              @endforeach
-          </select> 
-        </div>
-        <div class="col-md-12">
-          <div class="input-group mb-3">
-            <label class="input-group-text" for="inputGroupFile01">Upload profile image</label>
-            <input type="file" class="form-control" id="inputGroupFile01" name="profile_image" required>
-          </div>
+          <label for="inputEmail4" class="form-label">Division name</label>
+          <input type="text" class="form-control" id="inputEmail4" name="divisionName" required>
         </div>
         <div class="col-12">
           <button type="submit" class="btn btn-primary">Create</button>

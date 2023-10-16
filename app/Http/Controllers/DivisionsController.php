@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Division;
 
 class DivisionsController extends Controller
 {
@@ -15,7 +16,8 @@ class DivisionsController extends Controller
      */
     public function index()
     {
-        return view('divisions.index');
+        $divisions = Division::all();
+        return view('divisions.index', compact('divisions'));
     }
 
     /**
@@ -23,7 +25,7 @@ class DivisionsController extends Controller
      */
     public function create()
     {
-        //
+        return view('divisions.create');
     }
 
     /**
@@ -31,15 +33,19 @@ class DivisionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $divisionCreate = new Division();
+        $divisionCreate->divisionName = $request->divisionName;
+        $divisionCreate->save();
+        return redirect()->to('/divisions');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Division $division)
     {
-        //
+        $employees = $division->employees;
+        return view('divisions.details', compact('division', 'employees'));
     }
 
     /**

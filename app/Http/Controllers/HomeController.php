@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Employee;
+use App\Models\Division;
 
 class HomeController extends Controller
 {
@@ -32,7 +33,14 @@ class HomeController extends Controller
 
     public function create()
     {
-        return view('dashboard.create');
+        $divisions = Division::withCount('employees')->having('employees_count', '<', 2)->get();
+        return view('dashboard.create', compact('divisions'));
+    }
+
+    public function details($id)
+    {
+        $employee = Employee::find($id);
+        return view('dashboard.details', compact('employee'));
     }
 
     public function store(Request $request)
@@ -51,7 +59,8 @@ class HomeController extends Controller
         $employeeCreate->number = $request->number;
         $employeeCreate->department = $request->department;
         $employeeCreate->role = $request->role;
-        $employeeCreate->profile_image = $name;
+        $employeeCreate->division_id = $request->division;
+        $employeeCreate->profile_image = '';
         $employeeCreate->save();
         return redirect()->to('/home');
     }

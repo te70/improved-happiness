@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('department');
             $table->string('role');
             $table->string('profile_image');
+            $table->foreignId('division_id')->constrained('divisions');
             $table->timestamps();
         });
     }

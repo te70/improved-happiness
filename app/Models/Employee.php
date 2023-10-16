@@ -17,6 +17,13 @@ class Employee extends Model
         'number',
         'department',
         'role',
-        'profile_image'
+        'profile_image',
+        'division_id'
     ];
+
+    public function division()
+    {
+        return $this->belongsTo(Division::class);
+    }
+
 }
