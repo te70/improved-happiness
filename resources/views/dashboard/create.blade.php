@@ -378,8 +378,8 @@
           <label for="inputPassword4" class="form-label">Role</label>
           <select id="inputState" class="form-select" name="role" required>
             <option selected>Choose...</option>
-            <option value="Interior design">Employee</option>
-            <option value="Property Management">Admin</option>
+            <option value="employee">Employee</option>
+            <option value="admin">Admin</option>
           </select>
         </div>
         <div class="col-md-6">
