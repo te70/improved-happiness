@@ -311,12 +311,14 @@
                 Dashboard
               </a>
             </li>
+            @if($user->roles == 'Admin')
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="{{ route('divisions') }}">
                 <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                 Divisions
               </a>
             </li>
+            @endif
           </ul>
           <hr class="my-3">
           <ul class="nav flex-column mb-auto">

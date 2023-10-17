@@ -43,7 +43,8 @@ class HomeController extends Controller
     public function details($id)
     {
         $employee = Employee::find($id);
-        return view('dashboard.details', compact('employee'));
+        $user = Auth::user();
+        return view('dashboard.details', compact('employee','user'));
     }
 
     public function store(Request $request)
@@ -80,7 +81,8 @@ class HomeController extends Controller
     public function edit($id)
     {
         $employee = Employee::find($id);
-        return view('dashboard.edit', compact('employee', 'id'));
+        $user = Auth::user();
+        return view('dashboard.edit', compact('employee', 'id', 'user'));
     }
 
     public function update(Request $request, $id)
@@ -94,7 +96,7 @@ class HomeController extends Controller
         $employee->department = $request->department;
         $employee->role = $request->role;
         $employee->update();
-        return view('dashboard.index', compact('employee'));
+        return redirect()->to('/home');
     }
 
     public function destroy(Request $request)

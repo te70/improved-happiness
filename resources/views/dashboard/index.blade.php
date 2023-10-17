@@ -206,12 +206,14 @@
                 Dashboard
               </a>
             </li>
+            @if($user->roles == 'Admin')
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="{{ route('divisions') }}">
                 <svg class="bi"><use xlink:href="#file-earmark"/></svg>
                 Divisions
               </a>
             </li>
+            @endif
           </ul>
           <hr class="my-3">
           <ul class="nav flex-column mb-auto">
@@ -237,11 +239,13 @@
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>
+        @if($user->roles == 'Admin')
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
             <a type="button" class="btn btn-sm btn-outline-secondary" href="{{ route('home.create') }}">Create</a>
           </div>
         </div>
+        @endif
       </div>
       <h2>Employees</h2>
       <div class="table-responsive small">
@@ -259,6 +263,7 @@
           </thead>
           <tbody>
             @foreach($employees as $key=>$employee)
+            @if($user->roles == 'Admin')
             <tr>
               <td>{{ $key+1 }}</td>
               <td><a href="{{ route('home.details', ['id' => $employee->id]) }}"><span class="badge rounded-pill text-bg-primary" style="text-transform: uppercase;">{{$employee->firstName}} {{$employee->lastName}}</span></a></td>
@@ -282,6 +287,33 @@
                 </div> 
             </td>
           </tr>
+          @else
+          @if($user->id == $employee->id)
+          <tr>
+            <td>{{ $key+1 }}</td>
+            <td><a href="{{ route('home.details', ['id' => $employee->id]) }}"><span class="badge rounded-pill text-bg-primary" style="text-transform: uppercase;">{{$employee->firstName}} {{$employee->lastName}}</span></a></td>
+            <td>{{ $employee->department}}</td>
+            <td>{{ $employee->role}}</td>
+            <td>{{ $employee->email}}</td>
+            <td>{{ $employee->number }}</td>
+            <td>
+              <div class="dropstart">
+                <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i style="color: black;" class="bi bi-three-dots-vertical"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <form action="{{ route('home.delete', ['id' => $employee->id]) }}" method="POST">
+                    <a class="dropdown-item" href="{{ route('home.edit', ['id' => $employee->id]) }}">Edit</a>
+                    @csrf
+                    @method('DELETE')
+                    {{-- <button type="submit" class="dropdown-item" href="">Delete</button> --}}
+                </form> 
+                </ul>
+              </div> 
+          </td>
+        </tr>
+          @endif
+          @endif
           @endforeach
           </tbody>
         </table>
